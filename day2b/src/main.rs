@@ -7,10 +7,7 @@ fn main() {
     .map(|num| num.split_once(' ').unwrap_or_default())
     .collect();
 
-  for i in 0..input_vec.len() {
-    let direction = input_vec[i].0;
-    let value = input_vec[i].1;
-
+  for (direction, value) in input_vec {
     match (direction, value.parse::<i32>().unwrap_or_default()) {
       ("forward", value) => {
         forward += value;
