@@ -1,9 +1,7 @@
-use std::fs;
-
 fn main() {
   let mut count = 0;
-  let numstr = fs::read_to_string("./input.txt").unwrap_or_default();
-  let nums: Vec<u16> = numstr.lines().map(|num| num.parse().unwrap_or_default()).collect();
+  let nums: Vec<u16> =
+    include_str!("../input.txt").lines().map(|num| num.parse().unwrap_or_default()).collect();
   let max = nums.len() - 2;
 
   for i in 1..max {

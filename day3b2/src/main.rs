@@ -1,5 +1,3 @@
-use std::fs;
-
 fn life(mut values: Vec<&str>, greater: bool) -> u32 {
   let length = values[0].len();
   let mut count = values.len();
@@ -28,7 +26,7 @@ fn life(mut values: Vec<&str>, greater: bool) -> u32 {
 }
 
 fn main() {
-  let input = fs::read_to_string("./input.txt").unwrap_or_default();
+  let input = include_str!("../input.txt");
   let oxygen = life(input.lines().collect(), true);
   let co2 = life(input.lines().collect(), false);
 

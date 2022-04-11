@@ -1,8 +1,6 @@
-use std::fs;
-
 fn main() {
-  let input = fs::read_to_string("./input.txt").unwrap_or_default();
-  let mut fish: Vec<u8> = input.split(',').map(|x| x.parse().unwrap_or_default()).collect();
+  let mut fish: Vec<u8> =
+    include_str!("../input.txt").split(',').map(|x| x.parse().unwrap_or_default()).collect();
 
   for _ in 0..80 {
     for f in 0..fish.len() {

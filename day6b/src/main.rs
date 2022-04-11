@@ -1,8 +1,5 @@
-use std::fs;
-
 pub fn main() {
-  let input = fs::read_to_string("./input.txt").unwrap_or_default();
-  let mut fish = input.split(',').fold([0; 9], |mut f, num| {
+  let mut fish = include_str!("../input.txt").split(',').fold([0; 9], |mut f, num| {
     f[num.parse::<usize>().unwrap_or_default()] += 1;
     f
   });
