@@ -1,6 +1,5 @@
 use std::fs;
 
-
 fn life(mut values: Vec<&str>, greater: bool) -> u32 {
   let length = values[0].len();
   let mut count = values.len();
