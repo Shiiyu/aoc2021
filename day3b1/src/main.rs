@@ -39,12 +39,12 @@ fn main() {
 
     let num = input_lines_co2.iter().filter(|n| &n[i..i + 1] == "1").count();
 
-    if num >= count_co2 - num {
-      input_lines_co2.retain(|&x| x[0..i + 1] == string_co2.clone() + "0");
-      string_co2 = string_co2.to_owned() + "0";
-    } else {
+    if num < count_co2 - num {
       input_lines_co2.retain(|&x| x[0..i + 1] == string_co2.clone() + "1");
       string_co2 = string_co2.to_owned() + "1";
+    } else {
+      input_lines_co2.retain(|&x| x[0..i + 1] == string_co2.clone() + "0");
+      string_co2 = string_co2.to_owned() + "0";
     }
 
     count_co2 = input_lines_co2.len();
