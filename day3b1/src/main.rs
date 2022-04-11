@@ -1,8 +1,9 @@
 use std::fs;
 
 fn main() {
-  // This huge mess could easily be avoided by making a struct, but who needs good code when it still works :)
-  // On that note i'm rewriting it because i'm really unhappy with how this looks
+  // This huge mess could easily be avoided by making a struct, but who needs good
+  // code when it still works :) On that note i'm rewriting it because i'm
+  // really unhappy with how this looks
   let input = fs::read_to_string("./input.txt").unwrap_or_default();
   let mut input_lines_life: Vec<&str> = input.lines().collect();
   let mut input_lines_co2 = input_lines_life.clone();
