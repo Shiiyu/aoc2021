@@ -65,12 +65,12 @@ impl Board {
     let mut nums_str = input.split_whitespace();
     let drawn = [[false; 5]; 5];
     let moves = 0usize;
-    let move_win = usize::MAX;
+    let move_win = 0usize;
 
-    for i in 0..5 {
-      for x in 0..5 {
+    for x in &mut nums {
+      for y in x {
         let num_str = nums_str.next().unwrap_or_default();
-        nums[i][x] = num_str.parse().unwrap_or_default();
+        *y = num_str.parse().unwrap_or_default();
       }
     }
 
@@ -85,7 +85,9 @@ fn main() {
 
   boards.split("\r\n\r\n").for_each(|s| {
     let mut board = Board::new(s);
+
     board = board.bingo(&nums);
+
     if board.moves() < moves {
       moves = board.moves();
       score = board.calc_score();
