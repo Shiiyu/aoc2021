@@ -16,6 +16,7 @@ impl Board {
             if self.check_if_win() {
               self.move_win = *num;
               self.moves = i;
+
               return self;
             }
           }
@@ -70,6 +71,7 @@ impl Board {
     for x in &mut nums {
       for y in x {
         let num_str = nums_str.next().unwrap_or_default();
+
         *y = num_str.parse().unwrap_or_default();
       }
     }
@@ -77,6 +79,7 @@ impl Board {
     Board { nums, drawn, moves, move_win }
   }
 }
+
 fn main() {
   let (nums_str, boards) = include_str!("../input.txt").split_once("\r\n\r\n").unwrap_or_default();
   let nums: Vec<usize> =

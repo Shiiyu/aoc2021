@@ -6,6 +6,7 @@ fn life(mut values: Vec<&str>, greater: bool) -> u32 {
   for i in 0..length {
     if count == 1 {
       life = values[0].to_owned();
+
       break;
     }
 
