@@ -2,8 +2,8 @@ use std::thread;
 
 fn puzzle() {
   let input: Vec<&str> = include_str!("../input.txt").lines().collect();
-  let mut grid = [[0usize; 1000]; 1000];
-  let mut count = 0usize;
+  let mut grid = [[0u16; 1000]; 1000];
+  let mut count = 0u16;
 
   for i in input {
     let mut split = i.split(" -> ");
@@ -51,7 +51,7 @@ fn puzzle() {
 }
 
 fn main() {
-  let child = thread::Builder::new().stack_size(8 * 1024 * 1024).spawn(puzzle).unwrap();
+  let child = thread::Builder::new().stack_size(2 * 1024 * 1024).spawn(puzzle).unwrap();
 
   child.join().unwrap();
 }
