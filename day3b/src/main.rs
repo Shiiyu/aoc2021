@@ -14,10 +14,10 @@ fn life(mut values: Vec<&str>, greater: bool) -> u32 {
 
     if (greater && num >= count - num) || (!greater && num < count - num) {
       values.retain(|&x| x.starts_with(&(life.clone() + "1")));
-      life = life.to_owned() + "1";
+      life.push('1');
     } else {
       values.retain(|&x| x.starts_with(&(life.clone() + "0")));
-      life = life.to_owned() + "0";
+      life.push('0');
     }
 
     count = values.len();
