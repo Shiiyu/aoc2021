@@ -1,7 +1,6 @@
 const LENGTH: usize = 12;
 
 fn life(mut values: Vec<&str>, greater: bool) -> u32 {
-  let LENGTH = values[0].len();
   let mut count = values.len();
   let mut life = String::new();
 
