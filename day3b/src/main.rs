@@ -1,9 +1,11 @@
+const LENGTH: usize = 12;
+
 fn life(mut values: Vec<&str>, greater: bool) -> u32 {
-  let length = values[0].len();
+  let LENGTH = values[0].len();
   let mut count = values.len();
   let mut life = String::new();
 
-  for i in 0..length {
+  for i in 0..LENGTH {
     if count == 1 {
       life = values[0].to_owned();
 
