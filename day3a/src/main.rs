@@ -1,5 +1,5 @@
 const LENGTH: usize = 12;
-const COUNT: u32 = 1000;
+const THRESHOLD: u32 = 500;
 
 fn main() {
   let input: Vec<u32> =
@@ -13,7 +13,7 @@ fn main() {
   });
 
   let gamma: u32 =
-    num_vec.into_iter().enumerate().map(|(i, n)| ((n >= (COUNT / 2)) as u32) << i).sum();
+    num_vec.into_iter().enumerate().map(|(i, n)| ((n >= THRESHOLD) as u32) << i).sum();
   let epsilon = (1 << LENGTH) - 1 - gamma;
 
   println!("Power Usage: {}", gamma * epsilon);
