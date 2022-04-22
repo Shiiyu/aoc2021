@@ -1,18 +1,14 @@
-fn main() {
-  let mut fish: Vec<u8> =
-    include_str!("../input.txt").split(',').map(|x| x.parse().unwrap_or_default()).collect();
+pub fn main() {
+  let mut fish = include_str!("../input.txt").split(',').fold([0; 9], |mut f, num| {
+    f[num.parse::<usize>().unwrap_or_default()] += 1;
+    f
+  });
 
-  for _ in 0..80 {
-    for f in 0..fish.len() {
-      match fish[f] {
-        0 => {
-          fish.push(8);
-          fish[f] = 6;
-        },
-        _ => fish[f] -= 1
-      }
-    }
+  for i in 1..80 {
+    fish[(i + 7) % 9] += fish[i % 9];
   }
 
-  println!("Fish after 80 days: {}", fish.len());
+  let end_fish: usize = fish.iter().sum();
+
+  println!("End Fish: {end_fish}");
 }
