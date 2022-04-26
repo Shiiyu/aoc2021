@@ -81,8 +81,7 @@ impl Board {
 }
 fn main() {
   let (nums_str, boards) = include_str!("../input.txt").split_once("\r\n\r\n").unwrap_or_default();
-  let nums: Vec<usize> =
-    nums_str.split(',').map(|n| n.parse::<usize>().unwrap_or_default()).collect();
+  let nums: Vec<usize> = nums_str.split(',').map(|n| n.parse::<usize>().unwrap_or_default()).collect();
   let (mut moves, mut score) = (0usize, 0usize);
 
   boards.split("\r\n\r\n").for_each(|s| {

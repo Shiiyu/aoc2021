@@ -1,6 +1,5 @@
 fn main() {
-  let crabs: Vec<usize> =
-    include_str!("../input.txt").split(',').map(|n| n.parse().unwrap_or_default()).collect();
+  let crabs: Vec<usize> = include_str!("../input.txt").split(',').map(|n| n.parse().unwrap_or_default()).collect();
   let min = crabs.iter().min().unwrap().clone();
   let max = crabs.iter().max().unwrap().clone();
   let mut min_fuel = usize::MAX;
