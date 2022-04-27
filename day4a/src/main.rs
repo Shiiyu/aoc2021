@@ -6,7 +6,7 @@ struct Board {
 }
 
 impl Board {
-  fn bingo(mut self, nums: &[usize]) -> Board {
+  fn bingo(&mut self, nums: &[usize]) {
     for (i, num) in nums.iter().enumerate() {
       for x in 0..5 {
         for y in 0..5 {
@@ -17,14 +17,12 @@ impl Board {
               self.move_win = *num;
               self.moves = i;
 
-              return self;
+              return;
             }
           }
         }
       }
     }
-
-    self
   }
 
   fn calc_score(&self) -> usize {
@@ -61,7 +59,7 @@ impl Board {
     self.moves
   }
 
-  fn new(input: &str) -> Board {
+  fn new(input: &str) -> Self {
     let mut nums = [[0usize; 5]; 5];
     let mut nums_str = input.split_whitespace();
     let drawn = [[false; 5]; 5];
@@ -76,7 +74,7 @@ impl Board {
       }
     }
 
-    Board { nums, drawn, moves, move_win }
+    Self { nums, drawn, moves, move_win }
   }
 }
 
@@ -88,7 +86,7 @@ fn main() {
   boards.split("\r\n\r\n").for_each(|s| {
     let mut board = Board::new(s);
 
-    board = board.bingo(&nums);
+    board.bingo(&nums);
 
     if board.moves() < moves {
       moves = board.moves();
