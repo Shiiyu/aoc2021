@@ -3,7 +3,6 @@ use std::{
   collections::HashSet
 };
 
-#[derive(Clone, Copy)]
 struct Line {
   x: u16,
   y: u16,
