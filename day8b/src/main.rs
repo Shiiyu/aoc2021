@@ -7,7 +7,7 @@ fn parse_digit(digit: &str, one: &str, four: &str) -> u32 {
     5 => {
       if one.chars().all(|c| digit.contains(c)) {
         3
-      } else if four.chars().filter(|&c| digit.contains(c)).count() == 2 {
+      } else if four.matches(|c| digit.contains(c)).count() == 2 {
         2
       } else {
         5
