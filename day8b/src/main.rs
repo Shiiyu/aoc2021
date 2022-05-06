@@ -22,7 +22,7 @@ fn parse_digit(digit: &str, one: &str, four: &str) -> u32 {
         6
       }
     },
-    _ => unreachable!()
+    _ => unreachable!(),
   }
 }
 
