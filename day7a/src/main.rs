@@ -1,5 +1,5 @@
 fn main() {
-  let mut crabs: Vec<u16> = include_str!("../input.txt").split(',').map(|n| n.parse().unwrap_or_default()).collect();
+  let mut crabs: Vec<u16> = include_str!("../input.txt").split(',').map(|n| n.parse().unwrap()).collect();
   crabs.sort_unstable();
   let align = crabs[crabs.len() / 2];
 
