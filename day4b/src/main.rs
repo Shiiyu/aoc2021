@@ -38,11 +38,11 @@ impl Board {
 }
 
 fn input() -> (Vec<u8>, Vec<Board>) {
-  let sections = include_str!("../input.txt").split_once("\r\n\r\n").unwrap();
+  let sections = include_str!("../input.txt").split_once("\n\n").unwrap();
 
   (
     sections.0.split(',').map(|n| n.parse().unwrap()).collect(),
-    sections.1.split("\r\n\r\n").map(|b| Board::new(b.split_whitespace().map(|n| n.parse().unwrap()))).collect()
+    sections.1.split("\n\n").map(|b| Board::new(b.split_whitespace().map(|n| n.parse().unwrap()))).collect()
   )
 }
 
