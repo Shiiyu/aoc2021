@@ -1,98 +1,61 @@
+const SIZE: usize = 25;
+const ROW: u32 = 0b11111;
+const COL: u32 = 0b100001000010000100001;
+
+trait IntoArray: IntoIterator {
+  fn into_array<const N: usize>(self) -> [Self::Item; N];
+}
+
+impl<I: IntoIterator> IntoArray for I {
+  fn into_array<const N: usize>(self) -> [Self::Item; N] {
+    let mut iter = self.into_iter();
+
+    [(); N].map(|_| iter.next().unwrap())
+  }
+}
+
 struct Board {
-  nums: [[usize; 5]; 5],
-  drawn: [[bool; 5]; 5],
-  moves: usize,
-  move_win: usize
+  tiles: [u8; SIZE],
+  drawn: u32
 }
 
 impl Board {
-  fn bingo(&mut self, nums: &[usize]) {
-    for (i, num) in nums.iter().enumerate() {
-      for x in 0..5 {
-        for y in 0..5 {
-          if num == &self.nums[x][y] {
-            self.drawn[x][y] = true;
-
-            if self.check_if_win() {
-              self.move_win = *num;
-              self.moves = i;
-
-              return;
-            }
-          }
-        }
-      }
-    }
+  fn new<I: Iterator<Item = u8>>(iter: I) -> Self {
+    Self { tiles: iter.into_array(), drawn: 0 }
   }
 
-  fn calc_score(&self) -> usize {
-    let Board { nums, drawn, moves: _, move_win } = self;
-    let mut sum = 0usize;
-
-    for x in 0..5 {
-      for y in 0..5 {
-        if !drawn[x][y] {
-          sum += nums[x][y];
-        }
-      }
-    }
-
-    sum * move_win
+  fn draw(&mut self, roll: u8) {
+    self.tiles.iter().enumerate().filter(|(_, &t)| t == roll).for_each(|(i, _)| self.drawn |= 1 << i);
   }
 
-  fn check_if_win(&self) -> bool {
-    let drawn = self.drawn;
-
-    for i in 0..5 {
-      if drawn[i][0] && drawn[i][1] && drawn[i][2] && drawn[i][3] && drawn[i][4] {
-        return true;
-      }
-      if drawn[0][i] && drawn[1][i] && drawn[2][i] && drawn[3][i] && drawn[4][i] {
-        return true;
-      }
-    }
-
-    false
+  fn is_solved(&self) -> bool {
+    (0..5).any(|i| self.drawn >> (i * 5) & ROW == ROW || self.drawn >> i & COL == COL)
   }
 
-  fn moves(&self) -> usize {
-    self.moves
-  }
-
-  fn new(input: &str) -> Self {
-    let mut nums = [[0usize; 5]; 5];
-    let mut nums_str = input.split_whitespace();
-    let drawn = [[false; 5]; 5];
-    let moves = 0usize;
-    let move_win = 0usize;
-
-    for x in &mut nums {
-      for y in x {
-        let num_str = nums_str.next().unwrap_or_default();
-
-        *y = num_str.parse().unwrap_or_default();
-      }
-    }
-
-    Self { nums, drawn, moves, move_win }
+  fn value(&self, roll: u8) -> u32 {
+    self.tiles.into_iter().enumerate().map(|(i, t)| (self.drawn >> i & 1 ^ 1) * t as u32).sum::<u32>() * roll as u32
   }
 }
 
+fn input() -> (Vec<u8>, Vec<Board>) {
+  let sections = include_str!("../input.txt").split_once("\r\n\r\n").unwrap();
+
+  (
+    sections.0.split(',').map(|n| n.parse().unwrap()).collect(),
+    sections.1.split("\r\n\r\n").map(|b| Board::new(b.split_whitespace().map(|n| n.parse().unwrap()))).collect()
+  )
+}
+
 fn main() {
-  let (nums_str, boards) = include_str!("../input.txt").split_once("\r\n\r\n").unwrap_or_default();
-  let nums: Vec<usize> = nums_str.split(',').map(|n| n.parse::<usize>().unwrap_or_default()).collect();
-  let (mut moves, mut score) = (nums.len(), 0usize);
+  let (rolls, mut boards) = input();
 
-  boards.split("\r\n\r\n").for_each(|s| {
-    let mut board = Board::new(s);
+  for roll in rolls.into_iter() {
+    for board in boards.iter_mut() {
+      board.draw(roll);
 
-    board.bingo(&nums);
-
-    if board.moves() < moves {
-      moves = board.moves();
-      score = board.calc_score();
+      if board.is_solved() {
+        return println!("Winning Board: {}", board.value(roll));
+      }
     }
-  });
-
-  println!("Board Score: {score}");
+  }
 }
