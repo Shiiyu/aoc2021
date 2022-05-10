@@ -1,13 +1,13 @@
 use std::{
   cmp::{max, min},
-  collections::HashSet
+  collections::HashSet,
 };
 
 struct Line {
   x: u16,
   y: u16,
   dx: u16,
-  dy: u16
+  dy: u16,
 }
 
 impl Line {

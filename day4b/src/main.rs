@@ -16,7 +16,7 @@ impl<I: IntoIterator> IntoArray for I {
 
 struct Board {
   tiles: [u8; SIZE],
-  drawn: u32
+  drawn: u32,
 }
 
 impl Board {
@@ -42,7 +42,7 @@ fn input() -> (Vec<u8>, Vec<Board>) {
 
   (
     sections.0.split(',').map(|n| n.parse().unwrap()).collect(),
-    sections.1.split("\n\n").map(|b| Board::new(b.split_whitespace().map(|n| n.parse().unwrap()))).collect()
+    sections.1.split("\n\n").map(|b| Board::new(b.split_whitespace().map(|n| n.parse().unwrap()))).collect(),
   )
 }
 

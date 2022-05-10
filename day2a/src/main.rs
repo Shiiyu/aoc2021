@@ -5,8 +5,8 @@ fn main() {
       ("forward", v) => (f + v, d),
       ("up", v) => (f, d - v),
       ("down", v) => (f, d + v),
-      _ => unreachable!()
-    }
+      _ => unreachable!(),
+    },
   );
 
   println!("Depth times horizontal: {}", forward * depth);
