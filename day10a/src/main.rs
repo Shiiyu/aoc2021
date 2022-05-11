@@ -1,3 +1,13 @@
+fn equals(a: char, b: char) -> bool {
+  match a {
+    '(' => b == ')',
+    '[' => b == ']',
+    '{' => b == '}',
+    '<' => b == '>',
+    _ => unreachable!()
+  }
+}
+
 fn main() {
   println!(
     "Syntax Error Score: {}",
@@ -7,22 +17,16 @@ fn main() {
       for bracket in line.chars() {
         if matches!(bracket, '(' | '[' | '{' | '<') {
           openings.push(bracket);
-        } else if bracket == ')' {
-          if openings.pop() != Some('(') {
-            return total + 3;
-          }
-        } else if bracket == ']' {
-          if openings.pop() != Some('[') {
-            return total + 57;
-          }
-        } else if bracket == '}' {
-          if openings.pop() != Some('{') {
-            return total + 1197;
-          }
-        } else if bracket == '>' {
-          if openings.pop() != Some('<') {
-            return total + 25137;
-          }
+        } else if equals(openings[openings.len() - 1], bracket) {
+          openings.pop();
+        } else {
+          return match bracket {
+            ')' => total + 3,
+            ']' => total + 57,
+            '}' => total + 1197,
+            '>' => total + 25137,
+            _ => unreachable!()
+          };
         }
       }
 
