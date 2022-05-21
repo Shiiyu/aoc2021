@@ -1,27 +1,14 @@
-const SIZE: usize = 25;
 const ROW: u32 = 0b11111;
 const COL: u32 = 0b100001000010000100001;
 
-trait IntoArray: IntoIterator {
-  fn into_array<const N: usize>(self) -> [Self::Item; N];
-}
-
-impl<I: IntoIterator> IntoArray for I {
-  fn into_array<const N: usize>(self) -> [Self::Item; N] {
-    let mut iter = self.into_iter();
-
-    [(); N].map(|_| iter.next().unwrap())
-  }
-}
-
 struct Board {
-  tiles: [u8; SIZE],
+  tiles: Vec<u8>,
   drawn: u32
 }
 
 impl Board {
   fn new<I: Iterator<Item = u8>>(iter: I) -> Self {
-    Self { tiles: iter.into_array(), drawn: 0 }
+    Self { tiles: iter.collect(), drawn: 0 }
   }
 
   fn draw(&mut self, roll: u8) {
@@ -33,7 +20,7 @@ impl Board {
   }
 
   fn value(&self, roll: u8) -> u32 {
-    self.tiles.into_iter().enumerate().map(|(i, t)| (self.drawn >> i & 1 ^ 1) * t as u32).sum::<u32>() * roll as u32
+    self.tiles.iter().enumerate().map(|(i, &t)| (self.drawn >> i & 1 ^ 1) * t as u32).sum::<u32>() * roll as u32
   }
 }
 

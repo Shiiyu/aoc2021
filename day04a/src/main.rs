@@ -20,7 +20,7 @@ impl Board {
   }
 
   fn value(&self, roll: u8) -> u32 {
-    self.tiles.iter().enumerate().map(|(i, t)| (self.drawn >> i & 1 ^ 1) * *t as u32).sum::<u32>() * roll as u32
+    self.tiles.iter().enumerate().map(|(i, &t)| (self.drawn >> i & 1 ^ 1) * t as u32).sum::<u32>() * roll as u32
   }
 }
 
