@@ -1,3 +1,5 @@
+#![feature(array_windows)]
+
 fn main() {
   println!(
     "Num times sum measurements increased: {}",
@@ -5,8 +7,8 @@ fn main() {
       .lines()
       .map(|num| num.parse().unwrap())
       .collect::<Vec<u16>>()
-      .windows(4)
-      .filter(|d| d[0] < d[3])
+      .array_windows()
+      .filter(|[a, _, _, d]| a < d)
       .count()
   );
 }

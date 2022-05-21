@@ -1,3 +1,5 @@
+#![feature(array_windows)]
+
 fn main() {
   println!(
     "Num of larger measurements: {}",
@@ -5,8 +7,8 @@ fn main() {
       .lines()
       .map(|num| num.parse().unwrap())
       .collect::<Vec<u16>>()
-      .windows(2)
-      .filter(|d| d[0] < d[1])
+      .array_windows()
+      .filter(|[a, b]| a < b)
       .count()
   );
 }
