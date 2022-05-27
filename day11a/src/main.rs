@@ -15,7 +15,7 @@ fn flash(octopi: &mut Vec<Vec<u8>>, x: usize, y: usize) -> usize {
 }
 
 fn main() {
-  let mut octopi = include_bytes!("../input.txt").split(|&b| b == b'\n').map(|l| l.to_vec()).collect::<Vec<Vec<u8>>>();
+  let mut octopi: Vec<Vec<u8>> = include_bytes!("../input.txt").split(|&b| b == b'\n').map(|l| l.to_vec()).collect();
 
   println!(
     "Flashes: {}",
